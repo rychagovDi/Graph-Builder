@@ -56,15 +56,31 @@ public class Graph {
     drawFieldGroup.getChildren().add(vertex);
   }
 
-  // Удаляет вершину из графа
+  // Удаляет вершину из графа, а так же связанные с ней ребра
   public void removeVertex(Vertex vertex) {
     vertices.remove(vertex);
     drawFieldGroup.getChildren().remove(vertex);
+
+    ArrayList<Edge> edgesForRemove = new ArrayList<>();
+
+    for(Edge edge : edges) {
+      if (vertex.equals(edge.getFirstVertex()) || vertex.equals(edge.getSecondVertex())) {
+        edgesForRemove.add(edge);
+      }
+    }
+
+    removeEdges(edgesForRemove);
   }
 
   // Добавляет новое ребро в граф
   public void addEdge(Edge edge) {
     edges.add(edge);
     drawFieldGroup.getChildren().add(edge);
+  }
+
+  // Удаляет вершины
+  private void removeEdges(ArrayList<Edge> edgesForRemove) {
+    edges.removeAll(edgesForRemove);
+    drawFieldGroup.getChildren().removeAll(edgesForRemove);
   }
 }

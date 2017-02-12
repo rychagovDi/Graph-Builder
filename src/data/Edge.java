@@ -22,9 +22,16 @@ public class Edge extends Line {
     setStartX(firstVertex.getCenterX());
     setStartY(firstVertex.getCenterY());
   }
+  public Vertex getFirstVertex() {
+    return firstVertex;
+  }
+
   public void setSecondVertex(Vertex secondVertex) {
     this.secondVertex = secondVertex;
     setEndX(secondVertex.getCenterX());
     setEndY(secondVertex.getCenterY());
+  }
+  public Vertex getSecondVertex() {
+    return secondVertex;
   }
 }
