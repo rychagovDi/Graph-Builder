@@ -64,11 +64,15 @@ public class Controller {
       @Override
       public void handle(MouseEvent event) {
 
+        // Рассчет координат клика внутри области для рисования
+        int clickX = (int) event.getSceneX() - (int)drawField.getLayoutX();
+        int clickY = (int) event.getSceneY() - (int)drawField.getLayoutY();
+
         // TODO Классы точек, линий и обработка их создания
 
         // Здесь создается объект Circle и помещается на экран
         if (leftMenuDot.isSelected()) {
-          drawFieldGroup.getChildren().add(new Circle((int) event.getSceneX() - 55, (int) event.getSceneY() - 25, 5));
+          drawFieldGroup.getChildren().add(new Circle(clickX, clickY, 5));
         }
 
       }
