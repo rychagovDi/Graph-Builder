@@ -34,7 +34,6 @@ public class Controller {
 
   private Vertex tempVertex;
   private boolean isEdgeStarted;
-  private Logger log = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
   public void initialize() {
     initLeftMenu();
@@ -116,6 +115,8 @@ public class Controller {
             // Если уже выбраны 2 вершины для ребра, создает ребро и добавляет его
             } else {
               graph.addEdge(new Edge(tempVertex, vertex));
+              tempVertex.toFront();
+              vertex.toFront();
               isEdgeStarted = false;
             }
           }
