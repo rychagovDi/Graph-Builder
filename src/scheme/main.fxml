@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Group xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
+   <children>
+      <AnchorPane minHeight="600.0" minWidth="800" prefHeight="600.0" prefWidth="820.0">
+         <children>
+            <MenuBar layoutY="2.0" minWidth="820">
+               <menus>
+                  <Menu mnemonicParsing="false" text="File">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                     </items>
+                  </Menu>
+               </menus>
+            </MenuBar>
+            <HBox layoutY="27.0">
+               <children>
+                  <VBox layoutY="27.0" prefHeight="573.0" prefWidth="57.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="750.0" AnchorPane.topAnchor="27.0">
+                     <children>
+      
+                        <RadioButton fx:id="leftMenuVertex" mnemonicParsing="false" text="Vertex">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </RadioButton>
+      
+                        <RadioButton fx:id="leftMenuEdge" mnemonicParsing="false" text="Edge">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </RadioButton>
+      
+                        <RadioButton fx:id="leftMenuStart" mnemonicParsing="false" text="Start">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </RadioButton>
+      
+                        <RadioButton fx:id="leftMenuEnd" mnemonicParsing="false" text="End">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </RadioButton>
+      
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <SubScene fx:id="drawField" height="573.0" layoutX="61.0" layoutY="27.0" width="759.0">
+              <root>
+                <Region />
+              </root>
+            </SubScene>
+            <Separator layoutX="60.0" layoutY="27.0" orientation="VERTICAL" prefHeight="583.0" prefWidth="0.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</Group>
