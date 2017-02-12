@@ -114,9 +114,11 @@ public class Controller {
 
             // Если уже выбраны 2 вершины для ребра, создает ребро и добавляет его
             } else {
-              graph.addEdge(new Edge(tempVertex, vertex));
-              tempVertex.toFront();
-              vertex.toFront();
+              if (tempVertex != vertex) {
+                graph.addEdge(new Edge(tempVertex, vertex));
+                tempVertex.toFront();
+                vertex.toFront();
+              }
               isEdgeStarted = false;
             }
           }
