@@ -71,17 +71,8 @@ public class Graph {
     }
 
     vertices.remove(vertex);
+    removeEdges(vertex);
     drawFieldGroup.getChildren().remove(vertex);
-
-    ArrayList<Edge> edgesForRemove = new ArrayList<>();
-
-    for(Edge edge : edges) {
-      if (vertex.equals(edge.getFirstVertex()) || vertex.equals(edge.getSecondVertex())) {
-        edgesForRemove.add(edge);
-      }
-    }
-
-    removeEdges(edgesForRemove);
   }
 
   // Добавляет новое ребро в граф
@@ -90,8 +81,16 @@ public class Graph {
     drawFieldGroup.getChildren().add(edge);
   }
 
-  // Удаляет вершины
-  private void removeEdges(ArrayList<Edge> edgesForRemove) {
+  // Удаляет ребра, свзянные с вершиной vertex
+  private void removeEdges(Vertex vertex) {
+    ArrayList<Edge> edgesForRemove = new ArrayList<>();
+
+    for(Edge edge : edges) {
+      if (vertex.equals(edge.getFirstVertex()) || vertex.equals(edge.getSecondVertex())) {
+        edgesForRemove.add(edge);
+      }
+    }
+    
     edges.removeAll(edgesForRemove);
     drawFieldGroup.getChildren().removeAll(edgesForRemove);
   }

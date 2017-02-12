@@ -8,7 +8,7 @@
 
 <Group xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
    <children>
-      <AnchorPane minHeight="600.0" minWidth="800" prefHeight="600.0" prefWidth="820.0">
+      <AnchorPane minHeight="600.0" minWidth="800" prefHeight="611.0" prefWidth="820.0">
          <children>
             <MenuBar layoutY="2.0" minWidth="820">
                <menus>
@@ -57,7 +57,7 @@
                   </VBox>
                </children>
             </HBox>
-            <SubScene fx:id="drawField" height="573.0" layoutX="67.0" layoutY="27.0" width="753.0">
+            <SubScene fx:id="drawField" height="583.0" layoutX="67.0" layoutY="27.0" width="753.0">
               <root>
                 <Region />
               </root>
