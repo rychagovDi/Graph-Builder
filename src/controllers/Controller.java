@@ -1,5 +1,6 @@
 package controllers;
 
+import data.Vertex;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
@@ -70,9 +71,23 @@ public class Controller {
 
         // TODO Классы точек, линий и обработка их создания
 
-        // Здесь создается объект Circle и помещается на экран
+        // Создается объект Vertex и помещается на экран
         if (leftMenuVertex.isSelected()) {
-          drawFieldGroup.getChildren().add(new Circle(clickX, clickY, 7));
+          Vertex vertex = new Vertex(clickX, clickY, 7);
+
+          // Для каждой вершины создается слушатель, который реагирует на нажатие по этой вершине
+          vertex.setOnMouseClicked(event1 -> {
+            if (leftMenuStart.isSelected()){
+              vertex.setFill(Paint.valueOf("green"));
+              // TODO Other logic, перенести логику закрашивания одной вершины в логику класса полного графа
+            }
+            if (leftMenuEnd.isSelected()){
+              vertex.setFill(Paint.valueOf("red"));
+              // TODO Other logic, перенести логику закрашивания одной вершины в логику класса полного графа
+            }
+          });
+
+          drawFieldGroup.getChildren().add(vertex);
         }
 
       }
