@@ -24,6 +24,8 @@ public class Controller {
   @FXML
   private RadioButton leftMenuEnd;
   @FXML
+  private RadioButton leftMenuRemove;
+  @FXML
   private SubScene drawField;
 
   private Group drawFieldGroup;
@@ -55,8 +57,13 @@ public class Controller {
     leftMenuEnd.setToggleGroup(toggleGroup);
     leftMenuEnd.setTooltip(new Tooltip("Режим выбора конца"));
     leftMenuEnd.setCursor(Cursor.HAND);
+
+    leftMenuRemove.setToggleGroup(toggleGroup);
+    leftMenuRemove.setTooltip(new Tooltip("Режим удаления"));
+    leftMenuRemove.setCursor(Cursor.HAND);
   }
 
+  // Инициализирует поле для рисования графа
   private void initDrawField() {
 
     drawFieldGroup = new Group();
@@ -86,6 +93,11 @@ public class Controller {
             if (leftMenuEnd.isSelected()){
               graph.setEnd(vertex);
             }
+
+            if(leftMenuRemove.isSelected()) {
+              graph.removeVertex(vertex);
+            }
+
           });
 
           graph.addVertex(vertex);

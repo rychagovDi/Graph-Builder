@@ -21,7 +21,7 @@
             </MenuBar>
             <HBox layoutY="27.0">
                <children>
-                  <VBox layoutY="27.0" prefHeight="573.0" prefWidth="57.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="750.0" AnchorPane.topAnchor="27.0">
+                  <VBox layoutY="27.0" prefHeight="573.0" prefWidth="68.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="750.0" AnchorPane.topAnchor="27.0">
                      <children>
       
                         <RadioButton fx:id="leftMenuVertex" mnemonicParsing="false" text="Vertex">
@@ -47,17 +47,22 @@
                               <Insets top="5.0" />
                            </padding>
                         </RadioButton>
+                        <RadioButton fx:id="leftMenuRemove" layoutX="10.0" layoutY="76.0" mnemonicParsing="false" text="Remove">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </RadioButton>
       
                      </children>
                   </VBox>
                </children>
             </HBox>
-            <SubScene fx:id="drawField" height="573.0" layoutX="61.0" layoutY="27.0" width="759.0">
+            <SubScene fx:id="drawField" height="573.0" layoutX="67.0" layoutY="27.0" width="753.0">
               <root>
                 <Region />
               </root>
             </SubScene>
-            <Separator layoutX="60.0" layoutY="27.0" orientation="VERTICAL" prefHeight="583.0" prefWidth="0.0" />
+            <Separator layoutX="66.0" layoutY="27.0" orientation="VERTICAL" prefHeight="583.0" prefWidth="0.0" />
          </children>
       </AnchorPane>
    </children>

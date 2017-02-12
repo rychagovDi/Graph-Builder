@@ -50,8 +50,14 @@ public class Graph {
     currentEnd = vertex;
   }
 
+  // Добавляет новую вершину в граф
   public void addVertex(Vertex vertex) {
     vertices.add(vertex);
     drawFieldGroup.getChildren().add(vertex);
+  }
+
+  public void removeVertex(Vertex vertex) {
+    vertices.remove(vertex);
+    drawFieldGroup.getChildren().remove(vertex);
   }
 }
