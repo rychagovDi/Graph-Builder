@@ -15,9 +15,9 @@ import javafx.scene.shape.Circle;
 public class Controller {
 
   @FXML
-  private RadioButton leftMenuDot;
+  private RadioButton leftMenuVertex;
   @FXML
-  private RadioButton leftMenuLine;
+  private RadioButton leftMenuEdge;
   @FXML
   private RadioButton leftMenuStart;
   @FXML
@@ -36,14 +36,14 @@ public class Controller {
   private void initLeftMenu(){
     ToggleGroup toggleGroup = new ToggleGroup(); // Объединяет кнопки в группу
 
-    leftMenuDot.setToggleGroup(toggleGroup);
-    leftMenuDot.setTooltip(new Tooltip("Режим рисования вершин")); // Подсказка при наведении курсора
-    leftMenuDot.setCursor(Cursor.HAND);                                 // Вид курсора
-    leftMenuDot.setSelected(true);
+    leftMenuVertex.setToggleGroup(toggleGroup);
+    leftMenuVertex.setTooltip(new Tooltip("Режим рисования вершин")); // Подсказка при наведении курсора
+    leftMenuVertex.setCursor(Cursor.HAND);                                 // Вид курсора
+    leftMenuVertex.setSelected(true);
 
-    leftMenuLine.setToggleGroup(toggleGroup);
-    leftMenuLine.setTooltip(new Tooltip("Режим рисования рёбер"));
-    leftMenuLine.setCursor(Cursor.HAND);
+    leftMenuEdge.setToggleGroup(toggleGroup);
+    leftMenuEdge.setTooltip(new Tooltip("Режим рисования рёбер"));
+    leftMenuEdge.setCursor(Cursor.HAND);
 
     leftMenuStart.setToggleGroup(toggleGroup);
     leftMenuStart.setTooltip(new Tooltip("Режим выбора начала"));
@@ -71,8 +71,8 @@ public class Controller {
         // TODO Классы точек, линий и обработка их создания
 
         // Здесь создается объект Circle и помещается на экран
-        if (leftMenuDot.isSelected()) {
-          drawFieldGroup.getChildren().add(new Circle(clickX, clickY, 5));
+        if (leftMenuVertex.isSelected()) {
+          drawFieldGroup.getChildren().add(new Circle(clickX, clickY, 7));
         }
 
       }

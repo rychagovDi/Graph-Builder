@@ -21,16 +21,16 @@
             </MenuBar>
             <HBox layoutY="27.0">
                <children>
-                  <VBox layoutY="27.0" prefHeight="573.0" prefWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="750.0" AnchorPane.topAnchor="27.0">
+                  <VBox layoutY="27.0" prefHeight="573.0" prefWidth="57.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="750.0" AnchorPane.topAnchor="27.0">
                      <children>
       
-                        <RadioButton fx:id="leftMenuDot" mnemonicParsing="false" text="Dot">
+                        <RadioButton fx:id="leftMenuVertex" mnemonicParsing="false" text="Vertex">
                            <padding>
                               <Insets top="5.0" />
                            </padding>
                         </RadioButton>
       
-                        <RadioButton fx:id="leftMenuLine" mnemonicParsing="false" text="Line">
+                        <RadioButton fx:id="leftMenuEdge" mnemonicParsing="false" text="Edge">
                            <padding>
                               <Insets top="5.0" />
                            </padding>
@@ -50,14 +50,14 @@
       
                      </children>
                   </VBox>
-                  <Separator orientation="VERTICAL" prefHeight="200.0" />
                </children>
             </HBox>
-            <SubScene fx:id="drawField" height="573.0" layoutX="56.0" layoutY="27.0" width="764.0">
+            <SubScene fx:id="drawField" height="573.0" layoutX="61.0" layoutY="27.0" width="759.0">
               <root>
                 <Region />
               </root>
             </SubScene>
+            <Separator layoutX="60.0" layoutY="27.0" orientation="VERTICAL" prefHeight="583.0" prefWidth="0.0" />
          </children>
       </AnchorPane>
    </children>
