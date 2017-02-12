@@ -24,6 +24,7 @@ public class Graph {
   public void setStart(Vertex vertex) {
     if (currentStart != null) {
       currentStart.setFill(Paint.valueOf(Color.BLACK.toString()));
+      currentStart.setStart(false);
     }
 
     // Если новое начало графа совпадает с текущим концом - очищает значение конца
@@ -32,6 +33,7 @@ public class Graph {
     }
 
     vertex.setFill(Paint.valueOf(Color.GREEN.toString()));
+    vertex.setStart(true);
     currentStart = vertex;
   }
 
@@ -39,6 +41,7 @@ public class Graph {
   public void setEnd(Vertex vertex) {
     if (currentEnd != null) {
       currentEnd.setFill(Paint.valueOf(Color.BLACK.toString()));
+      currentEnd.setEnd(false);
     }
 
     // Если новый конец графа совпадает с текущим началом - очищает значение начала
@@ -47,6 +50,7 @@ public class Graph {
     }
 
     vertex.setFill(Paint.valueOf(Color.RED.toString()));
+    vertex.setEnd(true);
     currentEnd = vertex;
   }
 
@@ -58,6 +62,14 @@ public class Graph {
 
   // Удаляет вершину из графа, а так же связанные с ней ребра
   public void removeVertex(Vertex vertex) {
+    if (vertex.equals(currentStart)) {
+      currentStart = null;
+    }
+
+    if (vertex.equals(currentEnd)) {
+      currentEnd = null;
+    }
+
     vertices.remove(vertex);
     drawFieldGroup.getChildren().remove(vertex);
 
