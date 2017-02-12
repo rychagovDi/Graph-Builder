@@ -1,5 +1,6 @@
 package controllers;
 
+import data.Graph;
 import data.Vertex;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,7 +12,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 
 public class Controller {
 
@@ -28,9 +28,12 @@ public class Controller {
 
   private Group drawFieldGroup;
 
+  private Graph graph;
+
   public void initialize() {
     initLeftMenu();
     initDrawField();
+    graph = new Graph();
   }
 
   // Инициализирует боковое меню
@@ -78,7 +81,7 @@ public class Controller {
           // Для каждой вершины создается слушатель, который реагирует на нажатие по этой вершине
           vertex.setOnMouseClicked(event1 -> {
             if (leftMenuStart.isSelected()){
-              vertex.setFill(Paint.valueOf("green"));
+              graph.setStart(vertex);
               // TODO Other logic, перенести логику закрашивания одной вершины в логику класса полного графа
             }
             if (leftMenuEnd.isSelected()){
