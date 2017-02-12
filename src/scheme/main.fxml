@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Group xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Group xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
    <children>
       <AnchorPane minHeight="600.0" minWidth="800">
          <children>
@@ -22,25 +21,25 @@
             <VBox layoutY="27.0" prefHeight="573.0" prefWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="750.0" AnchorPane.topAnchor="27.0">
                <children>
 
-                  <RadioButton mnemonicParsing="false" text="Dot">
+                  <RadioButton fx:id="leftMenuDot" mnemonicParsing="false" text="Dot">
                      <padding>
                         <Insets top="5.0" />
                      </padding>
                   </RadioButton>
 
-                  <RadioButton mnemonicParsing="false" text="Line">
+                  <RadioButton fx:id="leftMenuLine" mnemonicParsing="false" text="Line">
                      <padding>
                         <Insets top="5.0" />
                      </padding>
                   </RadioButton>
 
-                  <RadioButton mnemonicParsing="false" text="Start">
+                  <RadioButton fx:id="leftMenuStart" mnemonicParsing="false" text="Start">
                      <padding>
                         <Insets top="5.0" />
                      </padding>
                   </RadioButton>
 
-                  <RadioButton mnemonicParsing="false" text="End">
+                  <RadioButton fx:id="leftMenuEnd" mnemonicParsing="false" text="End">
                      <padding>
                         <Insets top="5.0" />
                      </padding>
