@@ -82,11 +82,10 @@ public class Controller {
           vertex.setOnMouseClicked(event1 -> {
             if (leftMenuStart.isSelected()){
               graph.setStart(vertex);
-              // TODO Other logic, перенести логику закрашивания одной вершины в логику класса полного графа
             }
+
             if (leftMenuEnd.isSelected()){
-              vertex.setFill(Paint.valueOf("red"));
-              // TODO Other logic, перенести логику закрашивания одной вершины в логику класса полного графа
+              graph.setEnd(vertex);
             }
           });
 
