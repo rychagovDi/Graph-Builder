@@ -10,5 +10,29 @@ public class Vertex extends Circle{
 
   public Vertex(double centerX, double centerY, double radius) {
     super(centerX, centerY, radius);
+    sumWeight = Integer.MAX_VALUE;
+    isStart = false;
+    isEnd = false;
+  }
+
+  public boolean isStart() {
+    return isStart;
+  }
+  public void setStart(boolean start) {
+    isStart = start;
+  }
+
+  public boolean isEnd() {
+    return isEnd;
+  }
+  public void setEnd(boolean end) {
+    isEnd = end;
+  }
+
+  public int getSumWeight() {
+    return sumWeight;
+  }
+  public void setSumWeight(int sumWeight) {
+    this.sumWeight = sumWeight;
   }
 }
