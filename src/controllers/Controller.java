@@ -1,5 +1,6 @@
 package controllers;
 
+import data.Edge;
 import data.Graph;
 import data.Vertex;
 import javafx.fxml.FXML;
@@ -10,6 +11,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Paint;
+
+import java.util.logging.Logger;
 
 public class Controller {
 
@@ -28,6 +31,10 @@ public class Controller {
 
   private Group drawFieldGroup;
   private Graph graph;
+
+  private Vertex tempVertex;
+  private boolean isEdgeStarted;
+  private Logger log = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
   public void initialize() {
     initLeftMenu();
@@ -78,20 +85,39 @@ public class Controller {
 
       // Создается объект Vertex и помещается на экран
       if (leftMenuVertex.isSelected()) {
-        Vertex vertex = new Vertex(clickX, clickY, 7);
+        final Vertex vertex = new Vertex(clickX, clickY, 7);
 
         // Для каждой вершины создается слушатель, который реагирует на нажатие по этой вершине
         vertex.setOnMouseClicked(event1 -> {
+
+          // Если выбран пункт меню "Start", выделяет стартовую вершину графа
           if (leftMenuStart.isSelected()){
             graph.setStart(vertex);
           }
 
-          if (leftMenuEnd.isSelected()){
+          // Если выбран пункт меню "End", выделяет конечную вершину графа
+          if (leftMenuEnd.isSelected()) {
             graph.setEnd(vertex);
           }
 
-          if(leftMenuRemove.isSelected()) {
+          // Если выбран пункт меню "Remove", выделяет конечную вершину графа
+          if (leftMenuRemove.isSelected()) {
             graph.removeVertex(vertex);
+          }
+
+          // Если выбран пункт меню "Edge", производит действия по созданию ребра
+          if (leftMenuEdge.isSelected()) {
+
+            // Если еще не выбрана первая вершина для ребра, выбирает её
+            if (!isEdgeStarted) {
+              tempVertex = vertex;
+              isEdgeStarted = true;
+
+            // Если уже выбраны 2 вершины для ребра, создает ребро и добавляет его
+            } else {
+              graph.addEdge(new Edge(tempVertex, vertex));
+              isEdgeStarted = false;
+            }
           }
 
         });

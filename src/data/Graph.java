@@ -9,12 +9,14 @@ import java.util.ArrayList;
 public class Graph {
 
   private ArrayList<Vertex> vertices;
+  private ArrayList<Edge> edges;
   private Vertex currentStart;
   private Vertex currentEnd;
   private Group drawFieldGroup;
 
   public Graph(Group group) {
     vertices = new ArrayList<>();
+    edges = new ArrayList<>();
     drawFieldGroup = group;
   }
 
@@ -58,5 +60,11 @@ public class Graph {
   public void removeVertex(Vertex vertex) {
     vertices.remove(vertex);
     drawFieldGroup.getChildren().remove(vertex);
+  }
+
+  // Добавляет новое ребро в граф
+  public void addEdge(Edge edge) {
+    edges.add(edge);
+    drawFieldGroup.getChildren().add(edge);
   }
 }
