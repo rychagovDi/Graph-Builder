@@ -15,8 +15,6 @@ public class Graph {
 
   public Graph(Group group) {
     vertices = new ArrayList<>();
-    currentStart = null;
-    currentEnd = null;
     drawFieldGroup = group;
   }
 
@@ -56,6 +54,7 @@ public class Graph {
     drawFieldGroup.getChildren().add(vertex);
   }
 
+  // Удаляет вершину из графа
   public void removeVertex(Vertex vertex) {
     vertices.remove(vertex);
     drawFieldGroup.getChildren().remove(vertex);

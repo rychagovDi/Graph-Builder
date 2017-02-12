@@ -2,7 +2,6 @@ package controllers;
 
 import data.Graph;
 import data.Vertex;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
@@ -10,13 +9,12 @@ import javafx.scene.SubScene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 
 public class Controller {
 
   @FXML
-  private RadioButton leftMenuVertex;
+  private RadioButton leftMenuVertex; // Кнопки бокового меню
   @FXML
   private RadioButton leftMenuEdge;
   @FXML
@@ -26,7 +24,7 @@ public class Controller {
   @FXML
   private RadioButton leftMenuRemove;
   @FXML
-  private SubScene drawField;
+  private SubScene drawField; // Дополнительня сцена, внутри которой размещается группа drawFieldGroup для графа
 
   private Group drawFieldGroup;
   private Graph graph;
@@ -70,40 +68,37 @@ public class Controller {
     drawField.setRoot(drawFieldGroup);
     drawField.setFill(Paint.valueOf("white"));
 
-    drawField.setOnMouseClicked(new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent event) {
+    drawField.setOnMouseClicked(event -> {
 
-        // Рассчет координат клика внутри области для рисования
-        int clickX = (int) event.getSceneX() - (int)drawField.getLayoutX();
-        int clickY = (int) event.getSceneY() - (int)drawField.getLayoutY();
+      // Рассчет координат клика внутри области для рисования
+      int clickX = (int) event.getSceneX() - (int)drawField.getLayoutX();
+      int clickY = (int) event.getSceneY() - (int)drawField.getLayoutY();
 
-        // TODO Классы точек, линий и обработка их создания
+      // TODO Классы линий и обработка их создания
 
-        // Создается объект Vertex и помещается на экран
-        if (leftMenuVertex.isSelected()) {
-          Vertex vertex = new Vertex(clickX, clickY, 7);
+      // Создается объект Vertex и помещается на экран
+      if (leftMenuVertex.isSelected()) {
+        Vertex vertex = new Vertex(clickX, clickY, 7);
 
-          // Для каждой вершины создается слушатель, который реагирует на нажатие по этой вершине
-          vertex.setOnMouseClicked(event1 -> {
-            if (leftMenuStart.isSelected()){
-              graph.setStart(vertex);
-            }
+        // Для каждой вершины создается слушатель, который реагирует на нажатие по этой вершине
+        vertex.setOnMouseClicked(event1 -> {
+          if (leftMenuStart.isSelected()){
+            graph.setStart(vertex);
+          }
 
-            if (leftMenuEnd.isSelected()){
-              graph.setEnd(vertex);
-            }
+          if (leftMenuEnd.isSelected()){
+            graph.setEnd(vertex);
+          }
 
-            if(leftMenuRemove.isSelected()) {
-              graph.removeVertex(vertex);
-            }
+          if(leftMenuRemove.isSelected()) {
+            graph.removeVertex(vertex);
+          }
 
-          });
+        });
 
-          graph.addVertex(vertex);
-        }
-
+        graph.addVertex(vertex);
       }
+
     });
   }
 }
