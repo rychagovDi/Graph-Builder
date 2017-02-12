@@ -27,13 +27,12 @@ public class Controller {
   private SubScene drawField;
 
   private Group drawFieldGroup;
-
   private Graph graph;
 
   public void initialize() {
     initLeftMenu();
     initDrawField();
-    graph = new Graph();
+    graph = new Graph(drawFieldGroup);
   }
 
   // Инициализирует боковое меню
@@ -89,7 +88,7 @@ public class Controller {
             }
           });
 
-          drawFieldGroup.getChildren().add(vertex);
+          graph.addVertex(vertex);
         }
 
       }

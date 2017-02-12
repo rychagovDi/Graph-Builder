@@ -1,5 +1,6 @@
 package data;
 
+import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
@@ -10,11 +11,13 @@ public class Graph {
   private ArrayList<Vertex> vertices;
   private Vertex currentStart;
   private Vertex currentEnd;
+  private Group drawFieldGroup;
 
-  public Graph() {
+  public Graph(Group group) {
     vertices = new ArrayList<>();
     currentStart = null;
     currentEnd = null;
+    drawFieldGroup = group;
   }
 
   // Сохраняет новое значение начала графа
@@ -45,5 +48,10 @@ public class Graph {
 
     vertex.setFill(Paint.valueOf(Color.RED.toString()));
     currentEnd = vertex;
+  }
+
+  public void addVertex(Vertex vertex) {
+    vertices.add(vertex);
+    drawFieldGroup.getChildren().add(vertex);
   }
 }
