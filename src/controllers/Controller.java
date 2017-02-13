@@ -10,6 +10,7 @@ import javafx.scene.SubScene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.util.logging.Logger;
@@ -110,6 +111,7 @@ public class Controller {
             // Если еще не выбрана первая вершина для ребра, выбирает её
             if (!isEdgeStarted) {
               tempVertex = vertex;
+              tempVertex.setStrokeWidth(3); // Выделение контура вершины
               isEdgeStarted = true;
 
             // Если выбраны 2 вершины для ребра, создает ребро и добавляет его
@@ -117,6 +119,7 @@ public class Controller {
               if (tempVertex != vertex) {
                 graph.addEdgeWithCheck(new Edge(tempVertex, vertex));
                 tempVertex.toFront();
+                tempVertex.setStrokeWidth(0);
                 vertex.toFront();
               }
               isEdgeStarted = false;

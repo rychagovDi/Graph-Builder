@@ -1,5 +1,7 @@
 package data;
 
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
 public class Vertex extends Circle{
@@ -11,6 +13,8 @@ public class Vertex extends Circle{
   public Vertex(double centerX, double centerY, double radius) {
     super(centerX, centerY, radius);
     sumWeight = Integer.MAX_VALUE;
+    setStroke(Paint.valueOf(Color.ORANGE.toString())); // Необходимо для цветного выделения контура вершины при добавлении рёбер
+    setStrokeWidth(0);
     isStart = false;
     isEnd = false;
   }
