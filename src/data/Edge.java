@@ -1,12 +1,16 @@
 package data;
 
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
 
 public class Edge extends Line {
 
   private int weight;
   private Vertex firstVertex;
   private Vertex secondVertex;
+  private Text weightField;
 
   public Edge() {
 
@@ -15,6 +19,12 @@ public class Edge extends Line {
   public Edge(Vertex firstVertex, Vertex secondVertex) {
     setFirstVertex(firstVertex);
     setSecondVertex(secondVertex);
+
+    weightField = new Text(
+            Math.abs((firstVertex.getCenterX() + secondVertex.getCenterX())/2) - 10,
+            Math.abs((firstVertex.getCenterY() + secondVertex.getCenterY())/2) - 3,
+            "weight");
+    weightField.setFill(Paint.valueOf(Color.STEELBLUE.toString()));
   }
 
   public void setFirstVertex(Vertex firstVertex) {
@@ -33,5 +43,14 @@ public class Edge extends Line {
   }
   public Vertex getSecondVertex() {
     return secondVertex;
+  }
+
+  public Text getWeightField() {
+    return weightField;
+  }
+
+  public void setWeight(int weight) {
+    this.weight = weight;
+    weightField.setText("" + weight);
   }
 }

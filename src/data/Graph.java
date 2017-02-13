@@ -3,6 +3,7 @@ package data;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
@@ -79,6 +80,7 @@ public class Graph {
   public void addEdge(Edge edge) {
     edges.add(edge);
     drawFieldGroup.getChildren().add(edge);
+    drawFieldGroup.getChildren().add(edge.getWeightField());
   }
 
   // Добавлет новое ребро в граф с проверкой на существование этого ребра. Если ребро существует - не создает новое.
@@ -101,14 +103,17 @@ public class Graph {
   // Удаляет ребра, свзянные с вершиной vertex
   private void removeEdges(Vertex vertex) {
     ArrayList<Edge> edgesForRemove = new ArrayList<>();
+    ArrayList<Text> textForRemove = new ArrayList<>();
 
     for(Edge edge : edges) {
       if (vertex.equals(edge.getFirstVertex()) || vertex.equals(edge.getSecondVertex())) {
         edgesForRemove.add(edge);
+        textForRemove.add(edge.getWeightField());
       }
     }
     
     edges.removeAll(edgesForRemove);
     drawFieldGroup.getChildren().removeAll(edgesForRemove);
+    drawFieldGroup.getChildren().removeAll(textForRemove);
   }
 }
