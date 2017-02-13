@@ -102,6 +102,11 @@ public class Controller {
 
           // Если выбран пункт меню "Remove", удаляет вершину графа
           if (leftMenuRemove.isSelected()) {
+            if (tempVertex != null && tempVertex.equals(vertex)) { // Если удаляемая вершина участвует в создании ребра, отменяет режим создания ребра
+              tempVertex = null;
+              isEdgeStarted = false;
+            }
+
             graph.removeVertex(vertex);
           }
 
