@@ -81,6 +81,23 @@ public class Graph {
     drawFieldGroup.getChildren().add(edge);
   }
 
+  // Добавлет новое ребро в граф с проверкой на существование этого ребра. Если ребро существует - не создает новое.
+  public void addEdgeWithCheck(Edge edge) {
+
+    Vertex checkingVertex1 = edge.getFirstVertex();
+    Vertex checkingVertex2 = edge.getSecondVertex();
+
+    for (Edge existingEdge: edges) {
+      // Если между двумя вершинами уже находится ребро - не создает новое
+      if (checkingVertex1.equals(existingEdge.getFirstVertex()) && checkingVertex2.equals(existingEdge.getSecondVertex())
+              || checkingVertex1.equals(existingEdge.getSecondVertex()) & checkingVertex2.equals(existingEdge.getFirstVertex())) {
+        return;
+      }
+    }
+
+    addEdge(edge);
+  }
+
   // Удаляет ребра, свзянные с вершиной vertex
   private void removeEdges(Vertex vertex) {
     ArrayList<Edge> edgesForRemove = new ArrayList<>();

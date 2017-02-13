@@ -99,7 +99,7 @@ public class Controller {
             graph.setEnd(vertex);
           }
 
-          // Если выбран пункт меню "Remove", выделяет конечную вершину графа
+          // Если выбран пункт меню "Remove", удаляет вершину графа
           if (leftMenuRemove.isSelected()) {
             graph.removeVertex(vertex);
           }
@@ -112,10 +112,10 @@ public class Controller {
               tempVertex = vertex;
               isEdgeStarted = true;
 
-            // Если уже выбраны 2 вершины для ребра, создает ребро и добавляет его
+            // Если выбраны 2 вершины для ребра, создает ребро и добавляет его
             } else {
               if (tempVertex != vertex) {
-                graph.addEdge(new Edge(tempVertex, vertex));
+                graph.addEdgeWithCheck(new Edge(tempVertex, vertex));
                 tempVertex.toFront();
                 vertex.toFront();
               }
