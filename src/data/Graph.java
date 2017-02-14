@@ -57,23 +57,28 @@ public class Graph {
 
   // Добавляет новую вершину в граф
   public void addVertex(Vertex vertex) {
+    vertex.set_id(vertices.size() + 1);
     vertices.add(vertex);
     drawFieldGroup.getChildren().add(vertex);
+    drawFieldGroup.getChildren().add(vertex.get_idField());
   }
 
   // Удаляет вершину из графа, а так же связанные с ней ребра
   public void removeVertex(Vertex vertex) {
-    if (vertex.equals(currentStart)) {
+    if (vertex.isStart()) {
       currentStart = null;
     }
 
-    if (vertex.equals(currentEnd)) {
+    if (vertex.isEnd()) {
       currentEnd = null;
     }
 
     vertices.remove(vertex);
     removeEdges(vertex);
     drawFieldGroup.getChildren().remove(vertex);
+    drawFieldGroup.getChildren().remove(vertex.get_idField());
+
+    recalculateVertexId();
   }
 
   // Добавляет новое ребро в граф
@@ -100,6 +105,17 @@ public class Graph {
     addEdge(edge);
   }
 
+  // Строит и возвращает матрицу смежности графа.
+  public int[][] getMatrix() {
+    int[][] matrix = new int[vertices.size()][vertices.size()];
+    for (Edge edge : edges) {
+      matrix[edge.getFirstVertex().get_id() - 1][edge.getSecondVertex().get_id() - 1] = edge.getWeight();
+      matrix[edge.getSecondVertex().get_id() - 1][edge.getFirstVertex().get_id() - 1] = edge.getWeight();
+    }
+
+    return matrix;
+  }
+
   // Удаляет ребра, свзянные с вершиной vertex
   private void removeEdges(Vertex vertex) {
     ArrayList<Edge> edgesForRemove = new ArrayList<>();
@@ -115,5 +131,12 @@ public class Graph {
     edges.removeAll(edgesForRemove);
     drawFieldGroup.getChildren().removeAll(edgesForRemove);
     drawFieldGroup.getChildren().removeAll(textForRemove);
+  }
+
+  // Пересчитывает id у вершин
+  private void recalculateVertexId() {
+    for (Vertex vertex : vertices) {
+      vertex.set_id(vertices.indexOf(vertex) + 1);
+    }
   }
 }

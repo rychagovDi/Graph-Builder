@@ -124,9 +124,9 @@ public class Controller {
               if (tempVertex != vertex) {
                 graph.addEdgeWithCheck(new Edge(tempVertex, vertex));
                 tempVertex.toFront();
-                tempVertex.setStrokeWidth(0);
                 vertex.toFront();
               }
+              tempVertex.setStrokeWidth(0);
               isEdgeStarted = false;
             }
           }
