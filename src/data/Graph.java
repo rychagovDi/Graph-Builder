@@ -138,36 +138,23 @@ public class Graph {
     return matrix;
   }
 
-  public int[][] findRoute() {
-    // TODO Рефакторинг
-    int vNum = vertices.size();
-    int[][] matrix = getMatrix();
-    int[][] dist = new int[vNum][vNum]; // dist[i][j] = минимальное_расстояние(i, j)
+  // Возвращает матрицу кратчайших расстояний от каждой вершины до каждой вершины
+  public int[][] getDistance() {
 
-    for (int i = 0; i < vNum; i++) System.arraycopy(matrix[i], 0, dist[i], 0, vNum);
+    int[][] dist = getMatrix(); // dist[i][j] = минимальное_расстояние(i, j)
 
-    for (int i = 0; i < dist.length; i++) {
-      for (int j = 0; j < dist[i].length; j++) {
-        if (dist[i][j] == 0) {
-          if (i != j) {
+    for (int k = 0; k < dist.length; k++) {
+      for (int i = 0; i < dist.length; i++) {
+        for (int j = 0; j < dist.length; j++) {
+
+          if (dist[i][j] == 0 && i != j) {
             dist[i][j] = INF;
+          } else {
+            dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
           }
-        }
-      }
-    }
-    for (int k = 0; k < vNum; k++) {
-      for (int i = 0; i < vNum; i++) {
-        for (int j = 0; j < vNum; j++) {
-          dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
-        }
-      }
-    }
 
-    for (int k = 0; k < vNum; k++) {
-      for (int i = 0; i < vNum; i++) {
-        System.out.print(" " + dist[k][i]);
+        }
       }
-      System.out.println();
     }
 
     return dist;
@@ -177,13 +164,13 @@ public class Graph {
     way.add(end);
 
     if (start != end) {
-      int[][] route = findRoute();
+      int[][] route = getDistance();
       int min = route[end][start];
 
       if (min == INF){
         return way;
       }
-      
+
       int[][] matrix = getMatrix();
       int minIndex = end;
 
