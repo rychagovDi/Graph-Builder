@@ -43,12 +43,7 @@ public class Graph {
     vertex.setStart(true);
     currentStart = vertex;
 
-    if (currentEnd != null) {
-      for (int vert : getWay()){
-        System.out.print(" > " + (vert + 1));
-      }
-      System.out.println();
-    }
+    drawWay();
   }
 
   // Сохраняет новое значение конца графа
@@ -67,12 +62,7 @@ public class Graph {
     vertex.setEnd(true);
     currentEnd = vertex;
 
-    if (currentStart != null) {
-      for (int vert : getWay()){
-        System.out.print(" > " + (vert + 1));
-      }
-      System.out.println();
-    }
+    drawWay();
   }
 
   // Добавляет новую вершину в граф
@@ -127,8 +117,25 @@ public class Graph {
     addEdge(edge);
   }
 
+  // Удаляет ребра, свзянные с вершиной vertex
+  private void removeEdges(Vertex vertex) {
+    ArrayList<Edge> edgesForRemove = new ArrayList<>();
+    ArrayList<Text> textForRemove = new ArrayList<>();
+
+    for(Edge edge : edges) {
+      if (vertex.equals(edge.getFirstVertex()) || vertex.equals(edge.getSecondVertex())) {
+        edgesForRemove.add(edge);
+        textForRemove.add(edge.getWeightField());
+      }
+    }
+
+    edges.removeAll(edgesForRemove);
+    drawFieldGroup.getChildren().removeAll(edgesForRemove);
+    drawFieldGroup.getChildren().removeAll(textForRemove);
+  }
+
   // Строит и возвращает матрицу смежности графа.
-  public int[][] getMatrix() {
+  private int[][] getMatrix() {
     int[][] matrix = new int[vertices.size()][vertices.size()];
     for (Edge edge : edges) {
       matrix[edge.getFirstVertex().get_id()][edge.getSecondVertex().get_id()] = edge.getWeight();
@@ -139,7 +146,7 @@ public class Graph {
   }
 
   // Возвращает матрицу кратчайших расстояний от каждой вершины до каждой вершины
-  public int[][] getDistance() {
+  private int[][] getDistance() {
 
     int[][] dist = getMatrix(); // dist[i][j] = минимальное_расстояние(i, j)
 
@@ -160,7 +167,8 @@ public class Graph {
     return dist;
   }
 
-  public ArrayList<Integer> getWay(int start, int end) {
+  // Добавляет в поле way номера вершин, составляющих кратчайший маршрут
+  private void calculateWay(int start, int end) {
     way.add(end);
 
     if (start != end) {
@@ -168,7 +176,7 @@ public class Graph {
       int min = route[end][start];
 
       if (min == INF){
-        return way;
+        return;
       }
 
       int[][] matrix = getMatrix();
@@ -181,32 +189,38 @@ public class Graph {
         }
       }
 
-      getWay(start, minIndex);
+      calculateWay(start, minIndex);
     }
-
-    return way;
   }
 
-  public ArrayList<Integer> getWay() {
-    way = new ArrayList<>();
-    return getWay(currentStart.get_id(), currentEnd.get_id());
-  }
+  // Окрашивает ребра, составляющие кратчайший маршрут
+  private void drawWay() {
+    if (currentStart != null && currentEnd != null) {
+      way = new ArrayList<>();
+      calculateWay(currentStart.get_id(), currentEnd.get_id());
 
-  // Удаляет ребра, свзянные с вершиной vertex
-  private void removeEdges(Vertex vertex) {
-    ArrayList<Edge> edgesForRemove = new ArrayList<>();
-    ArrayList<Text> textForRemove = new ArrayList<>();
+      for (Edge edge : edges) {
+        edge.setStroke(Paint.valueOf(Color.BLACK.toString()));
+      }
 
-    for(Edge edge : edges) {
-      if (vertex.equals(edge.getFirstVertex()) || vertex.equals(edge.getSecondVertex())) {
-        edgesForRemove.add(edge);
-        textForRemove.add(edge.getWeightField());
+      if (way.size() > 1) {
+        for (int i = 0; i < way.size() - 1; i++) {
+          findEdge(way.get(i), way.get(i + 1)).setStroke(Paint.valueOf(Color.ORANGE.toString()));
+        }
       }
     }
-    
-    edges.removeAll(edgesForRemove);
-    drawFieldGroup.getChildren().removeAll(edgesForRemove);
-    drawFieldGroup.getChildren().removeAll(textForRemove);
+  }
+
+  // Находит ребро, находящееся между двух вершин
+  private Edge findEdge(int firstId, int secondId) {
+    Edge returnEdge = null;
+    for (Edge edge : edges) {
+      if (edge.getFirstVertex().get_id() == firstId && edge.getSecondVertex().get_id() == secondId ||
+              edge.getFirstVertex().get_id() == secondId && edge.getSecondVertex().get_id() == firstId) {
+        returnEdge = edge;
+      }
+    }
+    return returnEdge;
   }
 
   // Пересчитывает id у вершин

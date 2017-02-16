@@ -19,6 +19,7 @@ public class Edge extends Line {
   public Edge(Vertex firstVertex, Vertex secondVertex) {
     setFirstVertex(firstVertex);
     setSecondVertex(secondVertex);
+    setStrokeWidth(1);
 
     weightField = new Text(
             Math.abs((firstVertex.getCenterX() + secondVertex.getCenterX())/2) - 10,
