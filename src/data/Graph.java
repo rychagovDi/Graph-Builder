@@ -8,6 +8,8 @@ import javafx.scene.text.Text;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static java.lang.Math.min;
+
 public class Graph {
 
   private ArrayList<Vertex> vertices;
@@ -117,6 +119,34 @@ public class Graph {
     }
 
     return matrix;
+  }
+
+  public int[][] findRoute() {
+    // TODO Рефакторинг
+    int vNum = vertices.size();
+    int[][] matrix = getMatrix();
+    int[][] dist = new int[vNum][vNum]; // dist[i][j] = минимальное_расстояние(i, j)
+
+    for (int i = 0; i < vNum; i++) System.arraycopy(matrix[i], 0, dist[i], 0, vNum);
+
+    for (int i = 0; i < dist.length; i++) {
+      for (int j = 0; j < dist[i].length; j++) {
+        if (dist[i][j] == 0) {
+          if (i != j) {
+            dist[i][j] = Integer.MAX_VALUE / 2;
+          }
+        }
+      }
+    }
+    for (int k = 0; k < vNum; k++) {
+      for (int i = 0; i < vNum; i++) {
+        for (int j = 0; j < vNum; j++) {
+          dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+        }
+      }
+    }
+
+    return dist;
   }
 
   // Удаляет ребра, свзянные с вершиной vertex
