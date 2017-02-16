@@ -177,22 +177,20 @@ public class Graph {
     way.add(end);
 
     if (start != end) {
-      int[][] matrix = getMatrix();
       int[][] route = findRoute();
       int min = route[end][start];
 
       if (min == INF){
         return way;
       }
-
+      
+      int[][] matrix = getMatrix();
       int minIndex = end;
 
       for (int i = 0; i < matrix.length; i++) {
-        if (matrix[end][i] != 0) {
-          if ((route[end][i] + route[i][start]) <= min) {
-            min = matrix[end][i] + route[i][start];
-            minIndex = i;
-          }
+        if (matrix[end][i] != 0 && (matrix[end][i] + route[i][start]) <= min) {
+          min = matrix[end][i] + route[i][start];
+          minIndex = i;
         }
       }
 
