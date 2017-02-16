@@ -98,6 +98,7 @@ public class Controller {
           // Если выбран пункт меню "End", выделяет конечную вершину графа
           if (leftMenuEnd.isSelected()) {
             graph.setEnd(vertex);
+            graph.findRoute();
           }
 
           // Если выбран пункт меню "Remove", удаляет вершину графа

@@ -7,6 +7,7 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Stack;
 
 import static java.lang.Math.min;
 
@@ -144,6 +145,13 @@ public class Graph {
           dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
         }
       }
+    }
+
+    for (int k = 0; k < vNum; k++) {
+      for (int i = 0; i < vNum; i++) {
+        System.out.print(" " + dist[k][i]);
+      }
+      System.out.println();
     }
 
     return dist;
