@@ -50,7 +50,7 @@ public class Vertex extends Circle{
   }
   public void set_id(int id) {
     this._id = id;
-    _idField.setText("" + _id);
+    _idField.setText("" + (_id + 1));
   }
 
   public Text get_idField() {
