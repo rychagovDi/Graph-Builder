@@ -163,12 +163,12 @@ public class Graph {
       }
     }
 
-//    for (int k = 0; k < vNum; k++) {
-//      for (int i = 0; i < vNum; i++) {
-//        System.out.print(" " + dist[k][i]);
-//      }
-//      System.out.println();
-//    }
+    for (int k = 0; k < vNum; k++) {
+      for (int i = 0; i < vNum; i++) {
+        System.out.print(" " + dist[k][i]);
+      }
+      System.out.println();
+    }
 
     return dist;
   }
@@ -190,7 +190,7 @@ public class Graph {
       for (int i = 0; i < matrix.length; i++) {
         if (matrix[end][i] != 0) {
           if ((route[end][i] + route[i][start]) <= min) {
-            min = route[end][i] + route[i][start];
+            min = matrix[end][i] + route[i][start];
             minIndex = i;
           }
         }
