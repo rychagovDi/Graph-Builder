@@ -102,9 +102,9 @@ public class Graph {
 
           if (dist[i][j] == 0 && i != j) {
             dist[i][j] = INF;
-          } else {
-            dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
           }
+
+          dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
 
         }
       }
@@ -190,6 +190,7 @@ public class Graph {
     drawFieldGroup.getChildren().remove(vertex.get_idField());
 
     recalculateVertexId();
+    drawWay();
   }
 
   // Пересчитывает id у вершин
