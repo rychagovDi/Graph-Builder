@@ -212,6 +212,8 @@ public class Graph {
     edges.add(edge);
     drawFieldGroup.getChildren().add(edge);
     drawFieldGroup.getChildren().add(edge.getWeightField());
+
+    drawWay();
   }
 
   // Добавлет новое ребро в граф с проверкой на существование этого ребра. Если ребро существует - не создает новое.
