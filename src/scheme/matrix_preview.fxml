@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
-
-
-<AnchorPane minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MatrixPreviewController">
-   <children>
-      <GridPane fx:id="matrix" layoutX="14.0" layoutY="14.0">
-      </GridPane>
-   </children>
-</AnchorPane>
+<?import javafx.scene.layout.GridPane?>
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
+            fx:controller="controllers.MatrixPreviewController">
+  <content>
+    <AnchorPane>
+      <children>
+        <GridPane fx:id="matrix"/>
+      </children>
+    </AnchorPane>
+  </content>
+</ScrollPane>
