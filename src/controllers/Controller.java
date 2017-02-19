@@ -3,6 +3,7 @@ package controllers;
 import data.Edge;
 import data.Graph;
 import data.Vertex;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
@@ -10,6 +11,7 @@ import javafx.scene.SubScene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
@@ -39,7 +41,6 @@ public class Controller {
   public void initialize() {
     initLeftMenu();
     initDrawField();
-    graph = new Graph(drawFieldGroup);
   }
 
   // Инициализирует боковое меню
@@ -72,70 +73,95 @@ public class Controller {
   private void initDrawField() {
 
     drawFieldGroup = new Group();
+    graph = new Graph(drawFieldGroup);
     drawField.setRoot(drawFieldGroup);
     drawField.setFill(Paint.valueOf("white"));
 
-    drawField.setOnMouseClicked(event -> {
+    drawField.setOnMouseClicked(new SceneClickHandler());
+  }
+
+  private class SceneClickHandler implements EventHandler<MouseEvent> {
+
+    @Override
+    public void handle(MouseEvent event) {
 
       // Рассчет координат клика внутри области для рисования
-      int clickX = (int) event.getSceneX() - (int)drawField.getLayoutX();
-      int clickY = (int) event.getSceneY() - (int)drawField.getLayoutY();
-
-      // TODO Классы линий и обработка их создания
+      int clickX = (int) event.getSceneX() - (int) drawField.getLayoutX();
+      int clickY = (int) event.getSceneY() - (int) drawField.getLayoutY();
 
       // Создается объект Vertex и помещается на экран
       if (leftMenuVertex.isSelected()) {
-        final Vertex vertex = new Vertex(clickX, clickY, 7);
+        Vertex vertex = new Vertex(clickX, clickY, 7);
 
         // Для каждой вершины создается слушатель, который реагирует на нажатие по этой вершине
-        vertex.setOnMouseClicked(event1 -> {
-
-          // Если выбран пункт меню "Start", выделяет стартовую вершину графа
-          if (leftMenuStart.isSelected()){
-            graph.setStart(vertex);
-          }
-
-          // Если выбран пункт меню "End", выделяет конечную вершину графа
-          if (leftMenuEnd.isSelected()) {
-            graph.setEnd(vertex);
-          }
-
-          // Если выбран пункт меню "Remove", удаляет вершину графа
-          if (leftMenuRemove.isSelected()) {
-            if (tempVertex != null && tempVertex.equals(vertex)) { // Если удаляемая вершина участвует в создании ребра, отменяет режим создания ребра
-              tempVertex = null;
-              isEdgeStarted = false;
-            }
-
-            graph.removeVertex(vertex);
-          }
-
-          // Если выбран пункт меню "Edge", производит действия по созданию ребра
-          if (leftMenuEdge.isSelected()) {
-
-            // Если еще не выбрана первая вершина для ребра, выбирает её
-            if (!isEdgeStarted) {
-              tempVertex = vertex;
-              tempVertex.setStrokeWidth(3); // Выделение контура вершины
-              isEdgeStarted = true;
-
-            // Если выбраны 2 вершины для ребра, создает ребро и добавляет его
-            } else {
-              if (tempVertex != vertex) {
-                graph.addEdgeWithCheck(new Edge(tempVertex, vertex));
-                tempVertex.toFront();
-                vertex.toFront();
-              }
-              tempVertex.setStrokeWidth(0);
-              isEdgeStarted = false;
-            }
-          }
-
-        });
-
+        vertex.setOnMouseClicked(new VertexClickHandler(vertex));
         graph.addVertex(vertex);
       }
 
-    });
+    }
+  }
+
+  private class VertexClickHandler implements EventHandler<MouseEvent> {
+
+    private Vertex vertex;
+
+    VertexClickHandler(Vertex vertex) {
+      this.vertex = vertex;
+    }
+
+    @Override
+    public void handle(MouseEvent event) {
+
+      // Если выбран пункт меню "Start", выделяет стартовую вершину графа
+      if (leftMenuStart.isSelected()) {
+        graph.setStart(vertex);
+        return;
+      }
+
+      // Если выбран пункт меню "End", выделяет конечную вершину графа
+      if (leftMenuEnd.isSelected()) {
+        graph.setEnd(vertex);
+        return;
+      }
+
+      // Если выбран пункт меню "Remove", удаляет вершину графа
+      if (leftMenuRemove.isSelected()) {
+        removeVertex();
+        return;
+      }
+
+      // Если выбран пункт меню "Edge", производит действия по созданию ребра
+      if (leftMenuEdge.isSelected()) {
+        addEdge();
+      }
+
+    }
+
+    private void removeVertex() {
+      if (tempVertex != null && tempVertex.equals(vertex)) { // Если удаляемая вершина участвует в создании ребра, отменяет режим создания ребра
+        tempVertex = null;
+        isEdgeStarted = false;
+      }
+      graph.removeVertex(vertex);
+    }
+
+    private void addEdge() {
+      // Если еще не выбрана первая вершина для ребра, выбирает её
+      if (!isEdgeStarted) {
+        tempVertex = vertex;
+        tempVertex.setStrokeWidth(3); // Выделение контура вершины
+        isEdgeStarted = true;
+
+        // Если выбраны 2 вершины для ребра, создает ребро и добавляет его
+      } else {
+        if (tempVertex != vertex) {
+          graph.addEdgeWithCheck(new Edge(tempVertex, vertex));
+          tempVertex.toFront();
+          vertex.toFront();
+        }
+        tempVertex.setStrokeWidth(0);
+        isEdgeStarted = false;
+      }
+    }
   }
 }
