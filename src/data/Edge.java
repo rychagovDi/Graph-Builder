@@ -12,10 +12,6 @@ public class Edge extends Line {
   private Vertex secondVertex;
   private Text weightField;
 
-  public Edge() {
-
-  }
-
   public Edge(Vertex firstVertex, Vertex secondVertex) {
     setFirstVertex(firstVertex);
     setSecondVertex(secondVertex);
@@ -28,33 +24,33 @@ public class Edge extends Line {
     weightField.setFill(Paint.valueOf(Color.STEELBLUE.toString()));
   }
 
-  public void setFirstVertex(Vertex firstVertex) {
+  private void setFirstVertex(Vertex firstVertex) {
     this.firstVertex = firstVertex;
     setStartX(firstVertex.getCenterX());
     setStartY(firstVertex.getCenterY());
   }
-  public Vertex getFirstVertex() {
+  Vertex getFirstVertex() {
     return firstVertex;
   }
 
-  public void setSecondVertex(Vertex secondVertex) {
+  private void setSecondVertex(Vertex secondVertex) {
     this.secondVertex = secondVertex;
     setEndX(secondVertex.getCenterX());
     setEndY(secondVertex.getCenterY());
   }
-  public Vertex getSecondVertex() {
+  Vertex getSecondVertex() {
     return secondVertex;
   }
 
-  public Text getWeightField() {
+  Text getWeightField() {
     return weightField;
   }
 
-  public void setWeight(int weight) {
+  void setWeight(int weight) {
     this.weight = weight;
     weightField.setText("" + weight);
   }
-  public int getWeight() {
+  int getWeight() {
     return weight;
   }
 }

@@ -3,6 +3,7 @@ package controllers;
 import data.Edge;
 import data.Graph;
 import data.Vertex;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
@@ -12,10 +13,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-
-import java.util.logging.Logger;
 
 public class Controller {
 
@@ -32,7 +30,6 @@ public class Controller {
   @FXML
   private SubScene drawField; // Дополнительня сцена, внутри которой размещается группа drawFieldGroup для графа
 
-  private Group drawFieldGroup;
   private Graph graph;
 
   private Vertex tempVertex;
@@ -72,12 +69,17 @@ public class Controller {
   // Инициализирует поле для рисования графа
   private void initDrawField() {
 
-    drawFieldGroup = new Group();
+    Group drawFieldGroup = new Group();
     graph = new Graph(drawFieldGroup);
     drawField.setRoot(drawFieldGroup);
     drawField.setFill(Paint.valueOf("white"));
 
     drawField.setOnMouseClicked(new SceneClickHandler());
+  }
+
+  @FXML
+  private void clearGraph() {
+    graph.clearGraph();
   }
 
   private class SceneClickHandler implements EventHandler<MouseEvent> {

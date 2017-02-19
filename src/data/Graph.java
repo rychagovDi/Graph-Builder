@@ -8,6 +8,7 @@ import javafx.scene.text.Text;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static java.lang.Math.decrementExact;
 import static java.lang.Math.min;
 
 public class Graph {
@@ -26,6 +27,12 @@ public class Graph {
     edges = new ArrayList<>();
     drawFieldGroup = group;
   }
+
+  /*
+
+    Методы по работе с Graph
+
+  */
 
   // Сохраняет новое значение начала графа
   public void setStart(Vertex vertex) {
@@ -65,73 +72,13 @@ public class Graph {
     drawWay();
   }
 
-  // Добавляет новую вершину в граф
-  public void addVertex(Vertex vertex) {
-    vertex.set_id(vertices.size());
-    vertices.add(vertex);
-    drawFieldGroup.getChildren().add(vertex);
-    drawFieldGroup.getChildren().add(vertex.get_idField());
-  }
-
-  // Удаляет вершину из графа, а так же связанные с ней ребра
-  public void removeVertex(Vertex vertex) {
-    if (vertex.isStart()) {
-      currentStart = null;
-    }
-
-    if (vertex.isEnd()) {
-      currentEnd = null;
-    }
-
-    vertices.remove(vertex);
-    removeEdges(vertex);
-    drawFieldGroup.getChildren().remove(vertex);
-    drawFieldGroup.getChildren().remove(vertex.get_idField());
-
-    recalculateVertexId();
-  }
-
-  // Добавляет новое ребро в граф
-  public void addEdge(Edge edge) {
-    Random random = new Random();
-    edge.setWeight(random.nextInt(50) + 1);
-    edges.add(edge);
-    drawFieldGroup.getChildren().add(edge);
-    drawFieldGroup.getChildren().add(edge.getWeightField());
-  }
-
-  // Добавлет новое ребро в граф с проверкой на существование этого ребра. Если ребро существует - не создает новое.
-  public void addEdgeWithCheck(Edge edge) {
-
-    Vertex checkingVertex1 = edge.getFirstVertex();
-    Vertex checkingVertex2 = edge.getSecondVertex();
-
-    for (Edge existingEdge: edges) {
-      // Если между двумя вершинами уже находится ребро - не создает новое
-      if (checkingVertex1.equals(existingEdge.getFirstVertex()) && checkingVertex2.equals(existingEdge.getSecondVertex())
-              || checkingVertex1.equals(existingEdge.getSecondVertex()) & checkingVertex2.equals(existingEdge.getFirstVertex())) {
-        return;
-      }
-    }
-
-    addEdge(edge);
-  }
-
-  // Удаляет ребра, свзянные с вершиной vertex
-  private void removeEdges(Vertex vertex) {
-    ArrayList<Edge> edgesForRemove = new ArrayList<>();
-    ArrayList<Text> textForRemove = new ArrayList<>();
-
-    for(Edge edge : edges) {
-      if (vertex.equals(edge.getFirstVertex()) || vertex.equals(edge.getSecondVertex())) {
-        edgesForRemove.add(edge);
-        textForRemove.add(edge.getWeightField());
-      }
-    }
-
-    edges.removeAll(edgesForRemove);
-    drawFieldGroup.getChildren().removeAll(edgesForRemove);
-    drawFieldGroup.getChildren().removeAll(textForRemove);
+  // Полностью удаляет граф
+  public void clearGraph() {
+    drawFieldGroup.getChildren().remove(0, vertices.size()*2 + edges.size()*2);
+    vertices.clear();
+    edges.clear();
+    currentStart = null;
+    currentEnd = null;
   }
 
   // Строит и возвращает матрицу смежности графа.
@@ -214,6 +161,94 @@ public class Graph {
     }
   }
 
+  /*
+
+      Методы по работе с Vertex
+
+  */
+
+  // Добавляет новую вершину в граф
+  public void addVertex(Vertex vertex) {
+    vertex.set_id(vertices.size());
+    vertices.add(vertex);
+    drawFieldGroup.getChildren().add(vertex);
+    drawFieldGroup.getChildren().add(vertex.get_idField());
+  }
+
+  // Удаляет вершину из графа, а так же связанные с ней ребра
+  public void removeVertex(Vertex vertex) {
+    if (vertex.isStart()) {
+      currentStart = null;
+    }
+
+    if (vertex.isEnd()) {
+      currentEnd = null;
+    }
+
+    vertices.remove(vertex);
+    removeEdges(vertex);
+    drawFieldGroup.getChildren().remove(vertex);
+    drawFieldGroup.getChildren().remove(vertex.get_idField());
+
+    recalculateVertexId();
+  }
+
+  // Пересчитывает id у вершин
+  private void recalculateVertexId() {
+    for (Vertex vertex : vertices) {
+      vertex.set_id(vertices.indexOf(vertex));
+    }
+  }
+
+  /*
+
+    Методы по работе с Edge
+
+  */
+
+  // Добавляет новое ребро в граф
+  public void addEdge(Edge edge) {
+    Random random = new Random();
+    edge.setWeight(random.nextInt(50) + 1);
+    edges.add(edge);
+    drawFieldGroup.getChildren().add(edge);
+    drawFieldGroup.getChildren().add(edge.getWeightField());
+  }
+
+  // Добавлет новое ребро в граф с проверкой на существование этого ребра. Если ребро существует - не создает новое.
+  public void addEdgeWithCheck(Edge edge) {
+
+    Vertex checkingVertex1 = edge.getFirstVertex();
+    Vertex checkingVertex2 = edge.getSecondVertex();
+
+    for (Edge existingEdge: edges) {
+      // Если между двумя вершинами уже находится ребро - не создает новое
+      if (checkingVertex1.equals(existingEdge.getFirstVertex()) && checkingVertex2.equals(existingEdge.getSecondVertex())
+              || checkingVertex1.equals(existingEdge.getSecondVertex()) & checkingVertex2.equals(existingEdge.getFirstVertex())) {
+        return;
+      }
+    }
+
+    addEdge(edge);
+  }
+
+  // Удаляет ребра, свзянные с вершиной vertex
+  private void removeEdges(Vertex vertex) {
+    ArrayList<Edge> edgesForRemove = new ArrayList<>();
+    ArrayList<Text> textForRemove = new ArrayList<>();
+
+    for(Edge edge : edges) {
+      if (vertex.equals(edge.getFirstVertex()) || vertex.equals(edge.getSecondVertex())) {
+        edgesForRemove.add(edge);
+        textForRemove.add(edge.getWeightField());
+      }
+    }
+
+    edges.removeAll(edgesForRemove);
+    drawFieldGroup.getChildren().removeAll(edgesForRemove);
+    drawFieldGroup.getChildren().removeAll(textForRemove);
+  }
+
   // Находит ребро, находящееся между двух вершин
   private Edge findEdge(int firstId, int secondId) {
     Edge returnEdge = null;
@@ -224,12 +259,5 @@ public class Graph {
       }
     }
     return returnEdge;
-  }
-
-  // Пересчитывает id у вершин
-  private void recalculateVertexId() {
-    for (Vertex vertex : vertices) {
-      vertex.set_id(vertices.indexOf(vertex));
-    }
   }
 }
