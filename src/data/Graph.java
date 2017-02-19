@@ -8,7 +8,6 @@ import javafx.scene.text.Text;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static java.lang.Math.decrementExact;
 import static java.lang.Math.min;
 
 public class Graph {
@@ -82,7 +81,7 @@ public class Graph {
   }
 
   // Строит и возвращает матрицу смежности графа.
-  private int[][] getMatrix() {
+  public int[][] getMatrix() {
     int[][] matrix = new int[vertices.size()][vertices.size()];
     for (Edge edge : edges) {
       matrix[edge.getFirstVertex().get_id()][edge.getSecondVertex().get_id()] = edge.getWeight();

@@ -3,19 +3,18 @@ package controllers;
 import data.Edge;
 import data.Graph;
 import data.Vertex;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Cursor;
-import javafx.scene.Group;
-import javafx.scene.SubScene;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.*;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
+import javafx.stage.Stage;
 
-public class Controller {
+public class MainController {
 
   @FXML
   private RadioButton leftMenuVertex; // Кнопки бокового меню
@@ -80,6 +79,24 @@ public class Controller {
   @FXML
   private void clearGraph() {
     graph.clearGraph();
+  }
+
+  @FXML
+  private void openMatrixWindow() {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("../scheme/matrix_preview.fxml"));
+      Parent root = loader.load();
+
+      MatrixPreviewController matrixPreviewController = loader.getController();
+      matrixPreviewController.setGraph(graph);
+
+      Stage stage = new Stage();
+      stage.setTitle("Matrix preview");
+      stage.setScene(new Scene(root, 450, 450));
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   private class SceneClickHandler implements EventHandler<MouseEvent> {
