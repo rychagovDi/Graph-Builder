@@ -201,11 +201,14 @@ public class Graph {
 
       for (Edge edge : edges) {
         edge.setStroke(Paint.valueOf(Color.BLACK.toString()));
+        edge.setStrokeWidth(1);
       }
 
       if (way.size() > 1) {
         for (int i = 0; i < way.size() - 1; i++) {
-          findEdge(way.get(i), way.get(i + 1)).setStroke(Paint.valueOf(Color.ORANGE.toString()));
+          Edge edge = findEdge(way.get(i), way.get(i + 1));
+          edge.setStroke(Paint.valueOf(Color.ORANGE.toString()));
+          edge.setStrokeWidth(2);
         }
       }
     }
