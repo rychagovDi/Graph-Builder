@@ -20,6 +20,8 @@ public class Graph {
   private Vertex currentEnd;
   private Group drawFieldGroup;
   private ArrayList<Integer> way;
+  private int[][] matrix;
+  private int[][] distance;
 
   public Graph(Group group) {
     vertices = new ArrayList<>();
@@ -80,8 +82,12 @@ public class Graph {
     currentEnd = null;
   }
 
-  // Строит и возвращает матрицу смежности графа.
   public int[][] getMatrix() {
+    return matrix;
+  }
+
+  // Строит и возвращает матрицу смежности графа.
+  private int[][] calculateMatrix() {
     int[][] matrix = new int[vertices.size()][vertices.size()];
     for (Edge edge : edges) {
       matrix[edge.getFirstVertex().get_id()][edge.getSecondVertex().get_id()] = edge.getWeight();
@@ -92,9 +98,9 @@ public class Graph {
   }
 
   // Возвращает матрицу кратчайших расстояний от каждой вершины до каждой вершины
-  private int[][] getDistance() {
+  private int[][] calculateDistance() {
 
-    int[][] dist = getMatrix(); // dist[i][j] = минимальное_расстояние(i, j)
+    int[][] dist = matrix; // dist[i][j] = минимальное_расстояние(i, j)
 
     for (int k = 0; k < dist.length; k++) {
       for (int i = 0; i < dist.length; i++) {
@@ -118,19 +124,17 @@ public class Graph {
     way.add(end);
 
     if (start != end) {
-      int[][] route = getDistance();
-      int min = route[end][start];
+      int min = distance[end][start];
 
       if (min == INF){
         return;
       }
 
-      int[][] matrix = getMatrix();
       int minIndex = end;
 
       for (int i = 0; i < matrix.length; i++) {
-        if (matrix[end][i] != 0 && (matrix[end][i] + route[i][start]) <= min) {
-          min = matrix[end][i] + route[i][start];
+        if (matrix[end][i] != 0 && (matrix[end][i] + distance[i][start]) <= min) {
+          min = matrix[end][i] + distance[i][start];
           minIndex = i;
         }
       }
@@ -190,6 +194,10 @@ public class Graph {
     drawFieldGroup.getChildren().remove(vertex.get_idField());
 
     recalculateVertexId();
+
+    matrix = calculateMatrix();
+    distance = calculateDistance();
+
     drawWay();
   }
 
@@ -213,6 +221,9 @@ public class Graph {
     edges.add(edge);
     drawFieldGroup.getChildren().add(edge);
     drawFieldGroup.getChildren().add(edge.getWeightField());
+
+    matrix = calculateMatrix();
+    distance = calculateDistance();
 
     drawWay();
   }
