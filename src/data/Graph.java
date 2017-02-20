@@ -6,6 +6,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import static java.lang.Math.min;
@@ -80,6 +81,7 @@ public class Graph {
     edges.clear();
     currentStart = null;
     currentEnd = null;
+    matrix = new int[0][];
   }
 
   public int[][] getMatrix() {
@@ -100,7 +102,10 @@ public class Graph {
   // Возвращает матрицу кратчайших расстояний от каждой вершины до каждой вершины
   private int[][] calculateDistance() {
 
-    int[][] dist = matrix; // dist[i][j] = минимальное_расстояние(i, j)
+    int[][] dist = new int[matrix.length][]; // dist[i][j] = минимальное_расстояние(i, j)
+    for (int i = 0; i < dist.length; i++) {
+      dist[i] = Arrays.copyOf(matrix[i], matrix[i].length);
+    }
 
     for (int k = 0; k < dist.length; k++) {
       for (int i = 0; i < dist.length; i++) {
