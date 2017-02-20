@@ -1,5 +1,6 @@
 package controllers;
 
+import data.Edge;
 import data.Graph;
 import data.Vertex;
 import javafx.fxml.FXML;
@@ -29,7 +30,21 @@ public class DialogController {
 
   @FXML
   private void apply() {
-
+    if (isRightWeight()) {
+      Edge edge = new Edge(vertex1, vertex2);
+      edge.setWeight(Integer.decode(weightField.getText()));
+      graph.addEdgeWithCheck(edge);
+      dialog.close();
+    }
+  }
+  
+  private boolean isRightWeight() {
+    try {
+      int weight = Integer.decode(weightField.getText());
+      return weight >= 1;
+    } catch (NumberFormatException e) {
+      return false;
+    }
   }
 
   @FXML
