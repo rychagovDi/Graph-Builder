@@ -46,6 +46,7 @@ public class Graph {
     // Если новое начало графа совпадает с текущим концом - очищает значение конца
     if (vertex.equals(currentEnd)){
       currentEnd = null;
+      clearWay();
     }
 
     vertex.setFill(Paint.valueOf(Color.GREEN.toString()));
@@ -65,6 +66,7 @@ public class Graph {
     // Если новый конец графа совпадает с текущим началом - очищает значение начала
     if (vertex.equals(currentStart)){
       currentStart = null;
+      clearWay();
     }
 
     vertex.setFill(Paint.valueOf(Color.RED.toString()));
@@ -154,10 +156,7 @@ public class Graph {
       way = new ArrayList<>();
       calculateWay(currentStart.get_id(), currentEnd.get_id());
 
-      for (Edge edge : edges) {
-        edge.setStroke(Paint.valueOf(Color.BLACK.toString()));
-        edge.setStrokeWidth(1);
-      }
+      clearWay();
 
       if (way.size() > 1) {
         for (int i = 0; i < way.size() - 1; i++) {
@@ -166,6 +165,13 @@ public class Graph {
           edge.setStrokeWidth(2);
         }
       }
+    }
+  }
+
+  public void clearWay() {
+    for (Edge edge : edges) {
+      edge.setStroke(Paint.valueOf(Color.BLACK.toString()));
+      edge.setStrokeWidth(1);
     }
   }
 
