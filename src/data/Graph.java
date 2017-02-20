@@ -83,7 +83,7 @@ public class Graph {
   }
 
   public int[][] getMatrix() {
-    return matrix;
+    return matrix != null ? matrix : new int[0][];
   }
 
   // Строит и возвращает матрицу смежности графа.
@@ -176,6 +176,8 @@ public class Graph {
     vertices.add(vertex);
     drawFieldGroup.getChildren().add(vertex);
     drawFieldGroup.getChildren().add(vertex.get_idField());
+
+    matrix = calculateMatrix();
   }
 
   // Удаляет вершину из графа, а так же связанные с ней ребра
