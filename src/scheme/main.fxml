@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
@@ -14,12 +15,14 @@
                <menus>
                   <Menu mnemonicParsing="false" text="File">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Close"/>
+                        <MenuItem mnemonicParsing="false" text="Close" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Graph">
-                     <MenuItem mnemonicParsing="false" text="Clear" onAction="#clearGraph" />
-                     <MenuItem mnemonicParsing="false" text="Matrix preview" onAction="#openMatrixWindow" />
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#clearGraph" text="Clear" />
+                        <MenuItem mnemonicParsing="false" onAction="#openMatrixWindow" text="Matrix preview" />
+                     </items>
                   </Menu>
                </menus>
             </MenuBar>
@@ -27,6 +30,11 @@
                <children>
                   <VBox layoutY="27.0" prefHeight="573.0" prefWidth="68.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="750.0" AnchorPane.topAnchor="27.0">
                      <children>
+                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Click mode" textAlignment="CENTER" wrappingWidth="66.955078125">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Text>
       
                         <RadioButton fx:id="leftMenuVertex" mnemonicParsing="false" text="Vertex">
                            <padding>
@@ -52,6 +60,26 @@
                            </padding>
                         </RadioButton>
                         <RadioButton fx:id="leftMenuRemove" mnemonicParsing="false" text="Remove">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </RadioButton>
+                        <Separator prefWidth="200.0">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </Separator>
+                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight mode" textAlignment="CENTER" wrappingWidth="67.2587890625">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Text>
+                        <RadioButton fx:id="leftMenuAutoMode" mnemonicParsing="false" text="Auto">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </RadioButton>
+                        <RadioButton fx:id="leftMenuHandMode" mnemonicParsing="false" text="By hand">
                            <padding>
                               <Insets top="5.0" />
                            </padding>

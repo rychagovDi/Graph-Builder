@@ -229,8 +229,6 @@ public class Graph {
 
   // Добавляет новое ребро в граф
   public void addEdge(Edge edge) {
-    Random random = new Random();
-    edge.setWeight(random.nextInt(50) + 1);
     edges.add(edge);
     drawFieldGroup.getChildren().add(edge);
     drawFieldGroup.getChildren().add(edge.getWeightField());

@@ -46,7 +46,7 @@ public class Edge extends Line {
     return weightField;
   }
 
-  void setWeight(int weight) {
+  public void setWeight(int weight) {
     this.weight = weight;
     weightField.setText("" + weight);
   }

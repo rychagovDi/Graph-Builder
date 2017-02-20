@@ -7,15 +7,20 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.util.Random;
+
 public class MainController {
 
+  public TextField weightField;
+  /*
+        main.fxml
+     */
   @FXML
   private RadioButton leftMenuVertex; // Кнопки бокового меню
   @FXML
@@ -26,6 +31,10 @@ public class MainController {
   private RadioButton leftMenuEnd;
   @FXML
   private RadioButton leftMenuRemove;
+  @FXML
+  private RadioButton leftMenuAutoMode;
+  @FXML
+  private RadioButton leftMenuHandMode;
   @FXML
   private SubScene drawField; // Дополнительня сцена, внутри которой размещается группа drawFieldGroup для графа
 
@@ -41,28 +50,39 @@ public class MainController {
 
   // Инициализирует боковое меню
   private void initLeftMenu(){
-    ToggleGroup toggleGroup = new ToggleGroup(); // Объединяет кнопки в группу
+    ToggleGroup clickGroup = new ToggleGroup(); // Объединяет кнопки в группу
 
-    leftMenuVertex.setToggleGroup(toggleGroup);
+    leftMenuVertex.setToggleGroup(clickGroup);
     leftMenuVertex.setTooltip(new Tooltip("Режим рисования вершин")); // Подсказка при наведении курсора
     leftMenuVertex.setCursor(Cursor.HAND);                                 // Вид курсора
     leftMenuVertex.setSelected(true);
 
-    leftMenuEdge.setToggleGroup(toggleGroup);
+    leftMenuEdge.setToggleGroup(clickGroup);
     leftMenuEdge.setTooltip(new Tooltip("Режим рисования рёбер"));
     leftMenuEdge.setCursor(Cursor.HAND);
 
-    leftMenuStart.setToggleGroup(toggleGroup);
+    leftMenuStart.setToggleGroup(clickGroup);
     leftMenuStart.setTooltip(new Tooltip("Режим выбора начала"));
     leftMenuStart.setCursor(Cursor.HAND);
 
-    leftMenuEnd.setToggleGroup(toggleGroup);
+    leftMenuEnd.setToggleGroup(clickGroup);
     leftMenuEnd.setTooltip(new Tooltip("Режим выбора конца"));
     leftMenuEnd.setCursor(Cursor.HAND);
 
-    leftMenuRemove.setToggleGroup(toggleGroup);
+    leftMenuRemove.setToggleGroup(clickGroup);
     leftMenuRemove.setTooltip(new Tooltip("Режим удаления"));
     leftMenuRemove.setCursor(Cursor.HAND);
+
+    ToggleGroup weightGroup = new ToggleGroup();
+
+    leftMenuAutoMode.setToggleGroup(weightGroup);
+    leftMenuAutoMode.setTooltip(new Tooltip("Автоматическое задание веса ребру"));
+    leftMenuAutoMode.setCursor(Cursor.HAND);
+    leftMenuAutoMode.setSelected(true);
+
+    leftMenuHandMode.setToggleGroup(weightGroup);
+    leftMenuHandMode.setTooltip(new Tooltip("Ручное задание веса ребру"));
+    leftMenuHandMode.setCursor(Cursor.HAND);
   }
 
   // Инициализирует поле для рисования графа
@@ -174,13 +194,53 @@ public class MainController {
         // Если выбраны 2 вершины для ребра, создает ребро и добавляет его
       } else {
         if (tempVertex != vertex) {
-          graph.addEdgeWithCheck(new Edge(tempVertex, vertex));
-          tempVertex.toFront();
-          vertex.toFront();
+          if (leftMenuAutoMode.isSelected()) {
+            addAutoEdge();
+          }
+
+          if (leftMenuHandMode.isSelected()) {
+            openWeightDialog();
+          }
         }
         tempVertex.setStrokeWidth(0);
         isEdgeStarted = false;
       }
+    }
+
+    private void addAutoEdge() {
+      Edge edge = new Edge(tempVertex, vertex);
+
+      Random random = new Random();
+      edge.setWeight(random.nextInt(50) + 1);
+
+      graph.addEdgeWithCheck(edge);
+      tempVertex.toFront();
+      vertex.toFront();
+    }
+
+    private void openWeightDialog() {
+      try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../scheme/dialog.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+
+        Stage dialog = new Stage();
+        dialog.setScene(scene);
+        dialog.setTitle("Choose weight");
+        dialog.setResizable(false);
+        dialog.show();
+
+        DialogController dialogController = loader.getController();
+        dialogController.setData(graph, tempVertex, vertex, dialog);
+
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
+
+    private void apply() {
+
     }
   }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="291.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+fx:controller="controllers.DialogController">
+   <children>
+      <TextField fx:id="weightField" alignment="CENTER" layoutX="121.0" layoutY="78.0" promptText="Weight" />
+      <Button fx:id="applyButton" layoutX="95.0" layoutY="210.0" mnemonicParsing="false" text="Apply" onAction="#apply"/>
+      <Button fx:id="cancelButton" layoutX="244.0" layoutY="210.0" mnemonicParsing="false" text="Cancel" onAction="#cancel"/>
+   </children>
+</AnchorPane>
